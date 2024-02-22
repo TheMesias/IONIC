@@ -1,0 +1,77 @@
+<app-header [isModal]="true" [title]="employee ? 'Actualizar empleado': 'Agregar empleado'"></app-header>
+
+<ion-content>
+  
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="ion-padding ion-text-center" (keypress.enter)="submit()" >
+      
+      <ion-avatar *ngIf="form.value.img">
+        <img [src]="form.value.img" />
+      </ion-avatar>
+
+      <ion-icon class="img-icon" *ngIf="!form.value.img" name="image-outline"></ion-icon>
+
+      <br>
+
+      <ion-button (click)="takeImage()" mode="ios" size="small" shape="round">
+        Tome/Seleccione una foto 
+      </ion-button>
+
+      <app-login-input
+      automplete="name"
+      type="text"
+      label="Nombre"      
+      [control]="form.controls.name"
+      ></app-login-input>
+      
+      <div class="validators" *ngIf="form.controls.name.errors && form.controls.name.touched">
+        <div *ngIf="form.controls.name.errors?.['required']">El nombre es requerido</div>
+        <!-- <div *ngIf="form.controls.name.errors?.['minLength']">El nombre debe contener 3 caracteres</div> -->
+      </div>
+
+      <app-login-input
+      automplete="salario"
+      type="number"
+      label="Salario"      
+      [control]="form.controls.salario"
+      (ionInput) = "setNumberInput()"
+      ></app-login-input>
+      
+      <div class="validators" *ngIf="form.controls.salario.errors && form.controls.salario.touched">
+        <div *ngIf="form.controls.salario.errors?.['required']">El salario es requerido</div>
+        <div *ngIf="form.controls.salario.errors?.['min']">El salario minimo es 0 </div>
+      </div>
+
+      <app-login-input
+      automplete="cargo"
+      type="text"
+      label="Cargo"      
+      [control]="form.controls.cargo"
+      ></app-login-input>
+      
+      <div class="validators" *ngIf="form.controls.cargo.errors && form.controls.cargo.touched">
+        <div *ngIf="form.controls.cargo.errors?.['required']">El cargo es requerido</div>        
+      </div>
+
+      <app-login-input
+      automplete="plantel"
+      type="text"
+      label="Plantel"      
+      [control]="form.controls.plantel"
+      ></app-login-input>
+      
+      <div class="validators" *ngIf="form.controls.plantel.errors && form.controls.plantel.touched">
+        <div *ngIf="form.controls.plantel.errors?.['required']">El plantel es requerido</div>        
+      </div>
+      
+
+      
+
+      <ion-button class="submit" type="submit" mode="ios" [disabled]="form.invalid">
+        {{employee ? 'Actualizar empleado': 'Agregar empleado'}}
+        <ion-icon slot="end" name="checkmark-circle-outline"></ion-icon>
+      </ion-button>      
+
+    </form>
+
+</ion-content>

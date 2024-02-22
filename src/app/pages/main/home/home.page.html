@@ -1,0 +1,84 @@
+<app-header [showMenu]="true" title="Inicio"></app-header>
+
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-card mode="ios" color="warning" class="d-flex-center ion-text-center" *ngIf="!loading && employees " >
+    <div>
+      <h5>{{ employees.length }}</h5>
+      <p>Empleados</p>
+    </div>
+    <div>
+      <h5>{{ getBills() | currency: 'USD' }}</h5>
+      <p>Cantidad Neta</p>
+    </div>
+  </ion-card>
+
+  <ion-list *ngIf="!loading">
+    <ion-item-sliding class="product-item" *ngFor="let empleado of employees">
+      <ion-item>
+        <ion-avatar slot="start" >
+          <img [src]="empleado.img" alt="">
+        </ion-avatar>
+        <ion-label>
+          <div class="name">{{ empleado.name }}</div>
+          <div class="data">
+            <strong>Salario: </strong> {{ empleado.salario | currency: 'USD' }} <br>
+            <strong>Cargo: </strong> {{ empleado.cargo }} <br>
+            <strong>Plantel </strong> {{ empleado.plantel }}
+
+          </div>
+        </ion-label>
+      </ion-item>
+
+      <ion-item-options>
+
+        <ion-item-option (click)="addUpdateEmployee(empleado)">
+          <ion-icon class="option-btn" name="create-outline"></ion-icon>
+        </ion-item-option>
+
+        <ion-item-option (click)="confirmDeleteEmployee(empleado)" color="danger">
+          <ion-icon class="option-btn" name="trash-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-list *ngIf="loading">
+    <ion-item-sliding class="product-item" *ngFor="let empleado of [1,1,1,1,1,1,1]">
+      <ion-item>
+        <ion-avatar slot="start" >
+          <ion-skeleton-text animated style="width: 100%; height: 100%;"></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label>
+          <div>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+          </div>
+                    
+        </ion-label>
+      </ion-item>
+
+      
+
+    </ion-item-sliding>
+  </ion-list>
+
+  <div class="empty" *ngIf="!loading && !employees.length">
+    <ion-icon name="diamond-outline"></ion-icon>
+    <h3>No hay empleados disponibles</h3>
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button (click)="addUpdateEmployee()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+
+
+</ion-content>
