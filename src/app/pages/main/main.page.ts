@@ -34,4 +34,6 @@ export class MainPage implements OnInit {
   user(): User {
     return this.utilsService.getLocalStorage('user');    
   }
+
+  
 }

@@ -43,7 +43,6 @@ export class UpdateEmployeeComponent  implements OnInit {
       if(this.employee) this.updateEmployee();
       else this.createEmployee();
     }   
-
   }
 
   async createEmployee() {

@@ -4,8 +4,9 @@
   <ion-content class="ion-text-center" >
 
     <ion-avatar>    
-        <ion-icon class="empty-icon" name="person-circle-outline"></ion-icon>
-    </ion-avatar>
+      <img *ngIf="user()?.img" [src]="user()?.img" alt="">
+      <ion-icon *ngIf="!user()?.img" class="empty-icon" name="person-circle-outline"></ion-icon>
+  </ion-avatar>
 
     <h4> {{ user()?.name }} </h4>
 
